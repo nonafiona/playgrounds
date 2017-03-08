@@ -4,10 +4,9 @@ import UIKit
 // MARK: Overview of Merge Sort Logic
 // split items up & merge them altogether after
 
-// first: put items in a unsorted pile
-// second: split that into two piles
-// third: keep splitting the piles into two until you can't anymore
-// fourth: begin merging by pairing items together 
+// split that into two piles
+// keep splitting the piles into two until you can't anymore
+// begin merging by pairing items together
 
 
 // MARK: Splitting
@@ -22,21 +21,6 @@ import UIKit
 // [a] [b] [c] [d] [e]  // all items have their own individual piles
 
 
-func mergeSort(_ array: [Int]) -> [Int] {
-    guard array.count > 1 else { return array }
-    
-    let middleIndex = array.count / 2 // basically finding the median
-    
-    let leftArray = mergeSort(Array(array[0..<middleIndex])) // splits left up until middleIndex
-    let rightArray = mergeSort(Array(array[middleIndex..<array.count])) // splits right from middleIndex to end of array
-    
-    return merge(leftPile: leftArray, rightPile: rightArray)
-    
-}
-
-
-
-
 // MARK: Merging
 // merge the piles together while sorting
 
@@ -48,7 +32,51 @@ func mergeSort(_ array: [Int]) -> [Int] {
 // [1, 2, 4, 5] [9]  // merge some more
 // [1, 2, 4, 5, 9]   // merge finalized
 
+// MARK: Bottom-Up Implementation
+// the difference here is: you can merge immeadiately without an extra step.
+// what the heck are these naming conventions?
+// TODO: change poorly named variables.
 
+func mergeSortBottomUp<T>(_ a: [T], _ isOrderedBefore: (T, T) -> Bool) -> T {
+    let n = a.count
+    
+    var z = [a, a]
+    var d = 0
+    
+    var width = 1
+    
+    while width < n {
+        
+        var i = 0
+        
+        while i < n {
+            
+            var j = i // var j ??? seriously??? what does this mean???
+            var l = i
+            var r = i + width
+            
+            let lmax = min(l + width, n)
+            let rmax = min(r + width, n)
+            
+            
+        }
+    }
+}
+
+
+// MARK: Top-Down Implementation
+
+func mergeSort(_ array: [Int]) -> [Int] {
+    guard array.count > 1 else { return array }
+    
+    let middleIndex = array.count / 2 // basically finding the median
+    
+    let leftArray = mergeSort(Array(array[0..<middleIndex])) // splits left up until middleIndex
+    let rightArray = mergeSort(Array(array[middleIndex..<array.count])) // splits right from middleIndex to end of array
+    
+    return merge(leftPile: leftArray, rightPile: rightArray)
+    
+}
 
 func merge(leftPile: [Int], rightPile: [Int]) -> [Int] {
     
@@ -76,6 +104,7 @@ func merge(leftPile: [Int], rightPile: [Int]) -> [Int] {
             
         } else {
             
+            // append anyway
             orderedPile.append(leftPile[leftIndex])
             leftIndex += 1
             orderedPile.append(rightPile[rightIndex])
@@ -83,6 +112,9 @@ func merge(leftPile: [Int], rightPile: [Int]) -> [Int] {
             
         }
     }
+    
+    // MARK: Everything has been sorted into orderedPile
+    //       Now, just append to the end of the list
     
     while leftIndex < leftPile.count {
         
