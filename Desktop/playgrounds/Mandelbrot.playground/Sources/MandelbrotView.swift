@@ -13,7 +13,7 @@ public class MandelbrotView: NSView {
         let startTime = NSDate().timeIntervalSince1970
         drawMandelbrot(rect: rect)
         let elapsedTime = NSDate().timeIntervalSince1970 - startTime
-        print("Elapsed time: \(elapsedTime) seconds")
+        self.print("Elapsed time: \(elapsedTime) seconds")
         
         // Draw some coordinates
         // Axes
@@ -52,7 +52,7 @@ public class MandelbrotView: NSView {
         if colorSet.count < 2 {
             colorSet = Array()
             for c in 0...colorCount {
-                var c_f : CGFloat = CGFloat(c)
+                let c_f : CGFloat = CGFloat(c)
                 colorSet.append(NSColor(hue: CGFloat(abs(sin(c_f/30.0))), saturation: 1.0, brightness: c_f/100.0 + 0.8, alpha: 1.0))
             }
         }
@@ -90,8 +90,8 @@ public class MandelbrotView: NSView {
     }
 
     func drawMandelbrot(rect : CGRect) {
-        var width:Double = Double(rect.size.width)
-        var height:Double = Double(rect.size.height)
+        let width:Double = Double(rect.size.width)
+        let height:Double = Double(rect.size.height)
         let startTime = NSDate().timeIntervalSince1970
         initializeColors()
         for x in stride(from: 0, through: width, by: blockiness) {
@@ -102,6 +102,6 @@ public class MandelbrotView: NSView {
             }
         }
         let elapsedTime = NSDate().timeIntervalSince1970 - startTime
-        print("Calculation time: \(elapsedTime)")
+        self.print("Calculation time: \(elapsedTime)")
     }
 }

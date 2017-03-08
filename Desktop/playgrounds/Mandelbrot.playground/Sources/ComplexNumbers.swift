@@ -15,7 +15,7 @@ public struct Complex: Equatable, CustomStringConvertible {
             let r = String(format: "%.2f", real)
             let i = String(format: "%.2f", abs(imaginary))
             var result = ""
-            let p = -2
+            //let p = -2
             switch (real,imaginary) {
             case _ where imaginary == 0:
                 result = "\(r)"

@@ -34,7 +34,6 @@ let m = MandelbrotView(frame: rect)
 m.mandelbrotRect = newMandelbrotRect(triple: points["b"]!)
 m.mandelbrotRect = newMandelbrotRect(triple: points["e"]!)
 m.mandelbrotRect = newMandelbrotRect(triple: points["f"]!)
-print("this is running")
 
 
 
