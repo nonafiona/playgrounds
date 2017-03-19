@@ -121,3 +121,25 @@ public struct BetterQueue<T> {
     }
 }
 
+// MARK: testing it out
+
+var q = BetterQueue<String>()
+
+q.array
+
+q.enqueue("fiona")
+q.enqueue("fanisa")
+q.enqueue("julia")
+q.enqueue("miriam")
+
+q.dequeue()
+q.array
+q.count
+
+q.enqueue("shannon")
+q.array
+
+q.dequeue()
+q.array
+q.count
+
