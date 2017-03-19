@@ -121,6 +121,8 @@ public struct BetterQueue<T> {
     }
 }
 
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
 // MARK: testing it out
 
 var q = BetterQueue<String>()
