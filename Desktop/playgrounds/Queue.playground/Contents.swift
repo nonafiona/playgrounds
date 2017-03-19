@@ -32,7 +32,15 @@
 // queue.dequeue()
 // returns 3 <-- since it's now the first item in the list
 
-// MARK: Basic Implementation 
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+// MARK: Basic Implementation - Not Optimal 
+// O(1) Worst Case
+
+// representation of a queue's memory in this version: 
+
+// [ "fiona", "fanisa", "julia", "miriam", xxx, xxx ]
+//    head ^
 
 public struct Queue<T> {
     fileprivate var array = [T]()
@@ -59,7 +67,57 @@ public struct Queue<T> {
     }
     
     public var front: T? {
-        return array.first // returns the first item in the array 
+        return array.first // returns the first item in the array
+    }
+}
+
+// MARK: Better Implementation - More Optimal 
+// O(n) - Worst Case
+
+// representation of a queue's memory in this version:
+
+// [ xxx, "fiona", "fanisa", "julia", "miriam", xxx, xxx ]
+//         head ^
+
+public struct BetterQueue<T> {
+    fileprivate var array = [T?]() // use an optional to check if an item is there or not
+    fileprivate var head = 0       // head is the index of the front-most object
+    
+    public var isEmpty: Bool {
+        return count == 0
+    }
+    
+    public var count: Int {
+        return array.count - head
+    }
+    
+    public mutating func enqueue(_ element: T) {
+        array.append(element)
+    }
+    
+    public mutating func dequeue() -> T? {
+        guard head < array.count, let element = array[head] else { return nil }
+        
+        array[head] = nil
+        head += 1
+        
+        // calculates percentage of empty spots at the beginning as a ratio of total array size
+        let percentage = Double(head)/Double(array.count)
+        if array.count > 50 && percentage > 0.25 {
+            // if more than 25% of the array space is unused, chop it off
+            array.removeFirst()
+            head = 0
+        }
+        
+        return element
+    }
+    
+    public var front: T? {
+        if isEmpty {
+            return nil
+        } else {
+            return array[head]
+        }
     }
 }
 
