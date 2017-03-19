@@ -20,7 +20,6 @@ import UIKit
                         // splits first item, (c), of triplet off
 // [a] [b] [c] [d] [e]  // all items have their own individual piles
 
-
 // MARK: Merging
 // merge the piles together while sorting
 
@@ -58,9 +57,33 @@ func mergeSortBottomUp<T>(_ a: [T], _ isOrderedBefore: (T, T) -> Bool) -> T {
             let lmax = min(l + width, n)
             let rmax = min(r + width, n)
             
+            while l < lmax && r < rmax {
+                if isOrderedBefore(z[d][l], z[d][r]) {
+                    z[1-d][j] = z[d][l]
+                    l += 1
+                } else {
+                    z[1-d][j] = z[d][r]
+                    r += 1
+                }
+                j += 1
+            }
+            while l < lmax {
+                z[1 - d][j] = z[d][l]
+                j += 1
+                l += 1
+            }
+            while r < rmax {
+                z[1 - d][j] = z[d][r]
+                j += 1
+                r += 1
+            }
             
+            i += width*2
         }
+        width *= 2
+        d = 1 - d
     }
+    return z[d] as! T
 }
 
 
