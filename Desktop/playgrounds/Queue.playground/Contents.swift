@@ -1,12 +1,13 @@
 // Queue 
 
-// What is a Queue? 
+// MARK: What is a Queue?
 
 // a list that only allows:
 // insertion of items at the back
 // removal of items at the front
 
-// Why use a Queue? 
+// MARK: Why use a Queue? 
+
 // Services that require FIFO (first in, first out) 
 // a.k.a. storing a ton of tumblr posts you want to post
 // periodically in the future
@@ -14,7 +15,7 @@
 // a waiting line for customer service
 // (a.k.a. the horror of the DMV)
 
-// So what does the final product look like?
+// MARK: So what does the final product look like?
 
 // queue.enqueue(10) <- enqueue adds the number 10 to the end of the list
 // the queue now looks like this: 
@@ -72,7 +73,7 @@ public struct Queue<T> {
 }
 
 // MARK: Better Implementation - More Optimal 
-// O(n) - Worst Case
+// O(n) Worst Case
 
 // representation of a queue's memory in this version:
 
