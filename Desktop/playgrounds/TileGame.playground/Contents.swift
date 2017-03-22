@@ -1,17 +1,50 @@
 // What are you making? 
 
 // A 2048 clone that's probably cooler. 
-// ( but everyone says that 😏 ) 
+// ( but everyone says that 😏 )
+
+// MARK: Libraries
+
+import UIKit
+import PlaygroundSupport
+import GameplayKit
 
 // MARK: Movement orientation 
-// TODO: enum with vertical & horizontal cases
+// enum with vertical & horizontal cases
+
+enum Orientation {
+    case vertical
+    case horizontal
+}
 
 // MARK: Movement direction 
-// TODO: enum with backward & forward as the integer 1 & it's inverse (1, -1) 
+// enum with backward & forward
+
+enum Direction: Int {
+    case forward =  1
+    case backward = -1
+}
 
 // MARK: Position of the tile on the board - Struct
-// TODO: x & y pos variables
-// TODO: function for finding the previous position based on switch statement for orientation
+// for finding the previous position based on switch statement for orientation
+struct Position: Equatable {
+    let x : Int
+    let y : Int
+    
+    func previousPosition(direction:Direction, orientation:Orientation) -> Position {
+        switch orientation {
+        case .vertical:
+            return Position(x: x, y: y - direction.rawValue)
+        case .horizontal:
+            return Position(x: x - direction.rawValue, y: y)
+            
+        }
+    }
+}
+
+func ==(lhs: Position, rhs: Position) -> Bool {
+    return lhs.x == rhs.x && lhs.y == rhs.y
+}
 
 // MARK: Style configuration of the game - Struct
 // TODO: set tile foreground & background styles in arrays & manipulate them through functions
