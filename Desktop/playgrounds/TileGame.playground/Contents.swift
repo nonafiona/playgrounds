@@ -378,9 +378,14 @@ class GameViewController : UIViewController {
             }
         }
 }
+}
 
-let controller = GameViewController()
+
+var controller = GameViewController()
 PlaygroundPage.current.liveView = controller
+
+
+
 
 
 
