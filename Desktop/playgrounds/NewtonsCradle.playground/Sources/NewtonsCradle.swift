@@ -172,28 +172,29 @@ public class NewtonsCradle: UIView  {
     // MARK: Drawing
     
     public override func draw(_ rect: CGRect) {
-        let context = UIGraphicsGetCurrentContext()
-        context!.saveGState()
+        if let context = UIGraphicsGetCurrentContext() {
+        context.saveGState()
         
         for ball in balls {
             guard let attachmentBehavior = ballsToAttachmentBehaviors[ball] else { fatalError("Can't find attachment behavior for \(ball)") }
             let anchorPoint = attachmentBehavior.anchorPoint
             
+            context.move(to: anchorPoint.x, anchorPoint.y)
             CGContextMoveToPoint(context, anchorPoint.x, anchorPoint.y)
             CGContextAddLineToPoint(context, ball.center.x, ball.center.y)
-            context!.setStrokeColor(UIColor.darkGray.cgColor)
-            context!.setLineWidth(4.0)
-            context!.strokePath()
+            context.setStrokeColor(UIColor.darkGray.cgColor)
+            context.setLineWidth(4.0)
+            context.strokePath()
             
             let attachmentDotWidth:CGFloat = 10.0
             let attachmentDotOrigin = CGPoint(x: anchorPoint.x - (attachmentDotWidth / 2), y: anchorPoint.y - (attachmentDotWidth / 2))
             let attachmentDotRect = CGRect(x: attachmentDotOrigin.x, y: attachmentDotOrigin.y, width: attachmentDotWidth, height: attachmentDotWidth)
             
-            CGContextSetFillColorWithColor(context, UIColor.darkGrayColor().CGColor)
-            CGContextFillEllipseInRect(context, attachmentDotRect)
+            context!.setFillColor(UIColor.darkGray.cgColor)
+            context!.fillEllipse(in: attachmentDotRect)
         }
         
-        CGContextRestoreGState(context)
+        context!.restoreGState()
     }
-    
+    }
 }
