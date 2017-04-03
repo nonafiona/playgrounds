@@ -190,11 +190,11 @@ public class NewtonsCradle: UIView  {
             let attachmentDotOrigin = CGPoint(x: anchorPoint.x - (attachmentDotWidth / 2), y: anchorPoint.y - (attachmentDotWidth / 2))
             let attachmentDotRect = CGRect(x: attachmentDotOrigin.x, y: attachmentDotOrigin.y, width: attachmentDotWidth, height: attachmentDotWidth)
             
-            context!.setFillColor(UIColor.darkGray.cgColor)
-            context!.fillEllipse(in: attachmentDotRect)
+            context.setFillColor(UIColor.darkGray.cgColor)
+            context.fillEllipse(in: attachmentDotRect)
         }
         
-        context!.restoreGState()
+        context.restoreGState()
     }
     }
 }
