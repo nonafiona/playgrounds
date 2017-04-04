@@ -71,44 +71,33 @@ public class BinarySearchTree<T: Comparable> {
         }
     }
 }
+
+// formatting output
+
+extension BinarySearchTree: CustomStringConvertible {
+    public var description: String {
+        var s = ""
+        if let left = left {
+            s += "(\(left.description)) <- "
+        }
+        s += "\(value)"
+        if let right = right {
+            s += "-> (\(right.description))"
+        }
+        return s
+    }
+}
     
+// make a binary search tree ! 
 
+let tree = BinarySearchTree<Int>(value: 7)
+tree.insert(value: 2)
+tree.insert(value: 5)
+tree.insert(value: 10)
+tree.insert(value: 9)
+tree.insert(value: 1)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(tree)
 
 
 // Enum Implementation
