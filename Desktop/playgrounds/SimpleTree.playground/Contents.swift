@@ -29,6 +29,7 @@ extension TreeNode: CustomStringConvertible {
     }
 }
 
+
 // creating the tree descriptions
 
 let tree = TreeNode<String>(value: "beverages") // root node acting as general category
@@ -63,33 +64,96 @@ let plainFizzyNode = TreeNode<String>(value: "plain fizzy water")
 // root node already defined above
 
 // 2nd level categories: hot & cold
+
 tree.addChild(hotNode)
 tree.addChild(coldNode)
 
 // 3rd level category: hot drink types
+
 hotNode.addChild(teaNode)
 hotNode.addChild(coffeeNode)
 hotNode.addChild(chocolateNode)
 
 // 3rd level category: cold drink types
+
 coldNode.addChild(sodaNode)
 coldNode.addChild(fizzyNode)
 coldNode.addChild(milkNode)
 
 // 4th level category: tea types
+
 teaNode.addChild(blackTeaNode)
 teaNode.addChild(greenTeaNode)
 teaNode.addChild(earlGreyTeaNode)
 teaNode.addChild(mintTeaNode)
 
 // 4th level category: soda types
+
 sodaNode.addChild(gingerAleNode)
 sodaNode.addChild(spriteNode)
 sodaNode.addChild(fantaNode)
 
 // 4th level category: fizzy water types
+
 fizzyNode.addChild(lemonLacroixNode)
 fizzyNode.addChild(limeLacroixNode)
 fizzyNode.addChild(peachLacroixNode)
 fizzyNode.addChild(plainFizzyNode)
+
+print(tree)
+
+// search function
+
+extension TreeNode where T: Equatable {
+    func search(_ value: T) -> TreeNode? {
+        if value == self.value {
+            return self
+        }
+        for child in children {
+            if let found = child.search(value) {
+                return found
+            }
+        }
+        return nil
+    }
+}
+
+// search results 
+
+tree.search("cocoa") // available
+tree.search("mint")  // available
+tree.search("lemon la croix") // available
+
+tree.search("chai") // nil
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
