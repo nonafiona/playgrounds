@@ -70,6 +70,19 @@ public class BinarySearchTree<T: Comparable> {
             }
         }
     }
+    
+    // search method 
+    
+    public func search(value: T) -> BinarySearchTree? {
+        if value  < self.value {
+            return left?.search(value: value) // insert on left branch
+        } else if value > self.value {
+            return right?.search(value: value) // insert on right branch
+        } else {
+            return self // found the node!
+        }
+    }
+    
 }
 
 // formatting output
