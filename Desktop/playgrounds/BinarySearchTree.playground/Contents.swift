@@ -83,6 +83,49 @@ public class BinarySearchTree<T: Comparable> {
         }
     }
     
+    // traversal method
+    
+    public func traverseInOrder(process: (T) -> Void) {
+        left?.traverseInOrder(process: process)
+        process(value)
+        right?.traverseInOrder(process: process)
+    }
+    
+    // deleting nodes
+    private func reconnectParentToNode(node: BinarySearchTree?){
+        if let parent = parent {
+            if isLeftChild {
+                parent.left = node
+            } else {
+                parent.right = node
+            }
+        }
+        
+        node?.parent = parent
+    }
+    
+    // return the maximum & minimum of a node:
+    
+    // minimum = leftside
+    // maximum = rightside
+    
+    public func minimum() -> BinarySearchTree {
+        var node = self
+        while case let next? = node.left {
+            node = next
+        }
+        return node
+    }
+    
+    public func maximum() -> BinarySearchTree {
+        var node = self
+        while case let next? = node.right {
+            node = next
+        }
+        return node
+    }
+    
+    
 }
 
 // formatting output
@@ -111,6 +154,17 @@ tree.insert(value: 9)
 tree.insert(value: 1)
 
 print(tree)
+
+// search the tree
+
+tree.search(value: 5)
+tree.search(value: 1)
+tree.search(value: 10)
+tree.search(value: 3) // nil
+
+// traversal of the tree
+
+tree.traverseInOrder { value in print(value) }
 
 
 // Enum Implementation
