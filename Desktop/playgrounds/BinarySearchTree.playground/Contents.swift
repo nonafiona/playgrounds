@@ -83,12 +83,47 @@ public class BinarySearchTree<T: Comparable> {
         }
     }
     
-    // traversal method
+    // traversal method (in order)
     
     public func traverseInOrder(process: (T) -> Void) {
         left?.traverseInOrder(process: process)
         process(value)
         right?.traverseInOrder(process: process)
+    }
+    
+    // map method ( traverses through tree in order )
+    
+    public func map(formula: (T) -> T) -> [T] {
+        var a = [T]()
+        if let left = left { a += left.map(formula: formula) }
+        a.append(formula(value))
+        if let right = right { a += right.map(formula: formula) }
+        return a
+    }
+    
+    // map method cont ( returns tree as a sorted array )
+    public func toArray() -> [T] {
+        return map { $0 }
+    }
+    
+    // height method
+    public func height() -> Int {
+        if isLeaf {
+            return 0
+        } else {
+            return 1 + max(left?.height() ?? 0, right?.height() ?? 0)
+        }
+    }
+    
+    // depth method 
+    public func depth() -> Int {
+        var node = self
+        var edges = 0
+        while case let parent? = node.parent {
+            node = parent
+            edges += 1
+        }
+        return edges
     }
     
     // deleting nodes
@@ -125,6 +160,66 @@ public class BinarySearchTree<T: Comparable> {
         return node
     }
     
+    @discardableResult public func remove() -> BinarySearchTree? {
+        let replacement: BinarySearchTree?
+        
+        // Replacement for the current node can either be the biggest on the left 
+        // Or the smallest on the right, whichever is not nil 
+        if let right = right {
+            replacement = right.minimum()
+        } else if let left = left {
+            replacement = left.maximum()
+        } else {
+            replacement = nil
+        }
+        
+        replacement?.remove()
+        
+        // Place the replacement on the current node's position
+        replacement?.right = right
+        replacement?.left = left
+        right?.parent = replacement
+        left?.parent = replacement
+        reconnectParentToNode(node: replacement)
+        
+        // the current node is no longer part of the tree, so clean it up 
+        parent = nil
+        left = nil
+        right = nil
+        
+        return replacement
+    }
+    
+    // predescessor method 
+    
+    public func predecessor() -> BinarySearchTree<T>? {
+        if let left = left {
+            return left.maximum() // find the max value on left side
+        } else {
+            var node = self
+            // go through parent nodes until finding a smaller value
+            while case let parent? = node.parent {
+                if parent.value < value { return parent }
+                node = parent
+            }
+            return nil // return that there is no predecessor
+        }
+    }
+    
+    // successor method 
+    
+    public func successor() -> BinarySearchTree<T>? {
+        if let right = right {
+            return right.minimum() // finds the smallest value on the right
+        } else {
+            var node = self
+            while case let parent? = node.parent {
+            if parent.value > value { return parent }
+            node = parent
+            }
+            return nil // no sucessor
+        }
+    }
     
 }
 
@@ -166,6 +261,17 @@ tree.search(value: 3) // nil
 
 tree.traverseInOrder { value in print(value) }
 
+// returns the tree back sorted using map method
 
-// Enum Implementation
+tree.toArray()
+
+// finds the height of the tree
+tree.height()
+
+// finds the depth of the tree
+if let node9 = tree.search(value: 9) {
+    node9.depth()
+}
+
+
 
