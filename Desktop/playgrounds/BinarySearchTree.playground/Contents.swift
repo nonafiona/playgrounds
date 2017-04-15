@@ -221,6 +221,14 @@ public class BinarySearchTree<T: Comparable> {
         }
     }
     
+    // test binary search tree is valid method
+    public func isBST(minValue: T, maxValue: T) -> Bool {
+        if value < minValue || value > maxValue { return false }
+        let leftBST = left?.isBST(minValue: minValue, maxValue: value) ?? true
+        let rightBST = right?.isBST(minValue: value, maxValue: maxValue) ?? true
+        return leftBST && rightBST
+    }
+    
 }
 
 // formatting output
@@ -271,6 +279,14 @@ tree.height()
 // finds the depth of the tree
 if let node9 = tree.search(value: 9) {
     node9.depth()
+}
+
+// checking if Binary Search Tree is valid
+if let node1 = tree.search(value: 1) {
+    tree.isBST(minValue: Int.min, maxValue: Int.max) // true
+    node1.insert(value: 100) // got emmmmm
+    tree.search(value: 100) // nil
+    tree.isBST(minValue: Int.min, maxValue: Int.max) // false 😈
 }
 
 
